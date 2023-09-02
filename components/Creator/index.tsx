@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import ModalWrapper from "@/components/ModalWrapper";
 import { ToastMessage } from "@/components/Toast/page";
 import { useAuthStore } from "@/stores/authStore";
-import { ToastType } from "@/utils/constants";
+import { JWT_CREDS, ToastType } from "@/utils/constants";
 import supabase from "@/utils/supabaseClient";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useMemo, useState, useEffect } from "react";
@@ -13,6 +13,7 @@ import { BsUpload } from "react-icons/bs";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Image from "next/image";
 import NoLinks from "./NoLinks";
+import { removeCookie } from "@/utils/cookies";
 
 type TLink = {
   id?: number;
@@ -214,6 +215,9 @@ function Creator(props: TCreator) {
         message: "Logged out successfully",
         type: ToastType.Success as TypeOptions,
       });
+      localStorage.removeItem(JWT_CREDS.ME);
+      removeCookie(JWT_CREDS.ACCESS_TOKEN);
+      removeCookie(JWT_CREDS.REFRESH_TOKEN);
       window.location.reload();
     } catch (err: any) {
       ToastMessage({

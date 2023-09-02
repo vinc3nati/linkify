@@ -23,8 +23,9 @@ async function fetchUser(username: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const creatorSlug = params.creatorSlug;
   const { userData } = await fetchUser(creatorSlug);
-  const imageUrl = userData.profile_picture_url
-    ? userData.profile_picture_url
+  if (!userData) return {};
+  const imageUrl = userData?.profile_picture_url
+    ? userData?.profile_picture_url
     : `https://robohash.org/${userData.username}`;
 
   return {
