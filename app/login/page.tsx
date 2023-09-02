@@ -78,8 +78,8 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col w-[100dvw] h-[100dvh] items-center justify-center">
-      <div className="flex flex-col items-center justify-center relative border-2 border-primary/30 p-3 max-w-lg w-full rounded">
+    <div className="flex flex-col w-[100dvw] h-[100dvh] items-center justify-center px-2">
+      <div className="flex flex-col items-center justify-center relative border-2 border-primary/40 p-3 max-w-lg w-full rounded">
         <Button
           title="Go Back"
           customClasses="absolute left-8 top-5 rounded w-10 h-10 border border-primary text-primary bg-white flex items-center justify-center hover:bg-primary hover:text-white active:bg-primary active:text-white"

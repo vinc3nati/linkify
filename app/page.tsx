@@ -23,6 +23,7 @@ export default function Home() {
               onClick={() => {
                 router.push(me?.id ? me?.username : ABSOLUTE_PATHS.SIGNUP);
               }}
+              customClasses="rounded-3xl px-4 py-3"
             >
               Join Now
             </Button>

@@ -5,7 +5,7 @@ import Button from "../Button";
 type ModalWrapperProps = {
   showModal: boolean;
   children: React.ReactNode;
-  toggleShowModal: () => void;
+  toggleShowModal: (args?: any) => void;
 };
 
 function ModalWrapper(props: ModalWrapperProps) {

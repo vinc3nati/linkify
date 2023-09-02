@@ -3,16 +3,17 @@ import Button from "@/components/Button";
 import ModalWrapper from "@/components/ModalWrapper";
 import { ToastMessage } from "@/components/Toast/page";
 import { useAuthStore } from "@/stores/authStore";
-import { ToastType } from "@/utils/constants";
+import { JWT_CREDS, ToastType } from "@/utils/constants";
 import supabase from "@/utils/supabaseClient";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useMemo, useState, useEffect } from "react";
 import { TypeOptions } from "react-toastify";
 import { FiEdit2, FiLogOut } from "react-icons/fi";
-import { BsPlus, BsUpload } from "react-icons/bs";
+import { BsUpload } from "react-icons/bs";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Image from "next/image";
 import NoLinks from "./NoLinks";
+import { removeCookie } from "@/utils/cookies";
 
 type TLink = {
   id?: number;
@@ -70,7 +71,9 @@ function Creator(props: TCreator) {
     setShowModal(true);
   };
 
-  const toggleShowModal = () => {
+  const toggleShowModal = (e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
     setShowModal((prev) => !prev);
     reset();
   };
@@ -212,6 +215,9 @@ function Creator(props: TCreator) {
         message: "Logged out successfully",
         type: ToastType.Success as TypeOptions,
       });
+      localStorage.removeItem(JWT_CREDS.ME);
+      removeCookie(JWT_CREDS.ACCESS_TOKEN);
+      removeCookie(JWT_CREDS.REFRESH_TOKEN);
       window.location.reload();
     } catch (err: any) {
       ToastMessage({
@@ -291,7 +297,7 @@ function Creator(props: TCreator) {
   }, [userImage]);
 
   return (
-    <div className="flex w-full h-full flex-col items-center justify-center relative pt-6">
+    <div className="flex w-full h-screen flex-col items-center relative md:pt-6 px-2 pt-2">
       <ImageUploadingComponent />
 
       <h1 className="text-3xl font-bold text-blue-900 tracking-wider mt-2 mb-4">
@@ -334,11 +340,11 @@ function Creator(props: TCreator) {
       </div>
       {isLoggedIn && (
         <>
-          <div className="absolute top-5 right-5 flex gap-2">
+          <div className="fixed bottom-0 flex gap-1 p-2 w-full bg-[#efefef] md:bg-transparent md:gap-2 md:absolute md:top-5 md:right-5 md:w-max md:h-max ">
             {userImage.length > 0 && (
               <Button
                 type="button"
-                customClasses="bg-[#eee] text-primary border border-primary text-sm rounded-3xl"
+                customClasses="bg-[#eee] text-primary w-full border border-primary text-sm rounded-3xl"
                 onClick={handleImageUpload}
                 title="Upload Image"
               >
@@ -349,7 +355,7 @@ function Creator(props: TCreator) {
             <Button
               type="button"
               onClick={handleLogout}
-              customClasses="bg-[#eee] text-primary border border-primary text-sm rounded-3xl"
+              customClasses="bg-[#eee] w-full text-primary border border-primary text-sm rounded-3xl"
               title="logout"
             >
               <FiLogOut /> Logout
@@ -357,7 +363,7 @@ function Creator(props: TCreator) {
             <Button
               type="button"
               onClick={handleShowModal}
-              customClasses="rounded-3xl text-sm"
+              customClasses="rounded-3xl w-full text-sm"
               title="Add link"
             >
               Add Link
