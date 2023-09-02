@@ -16,7 +16,7 @@ function ModalWrapper(props: ModalWrapperProps) {
   if (!props.showModal) return;
 
   return (
-    <div className="fixed inset-0 h-screen w-screen flex justify-center items-center bg-black/30 z-10">
+    <div className="fixed inset-0 h-screen w-screen flex justify-center items-center bg-black/30 z-10 px-2">
       <div
         ref={modalRef}
         className="max-w-md w-full max-h-[70dvh] relative px-4 py-5 rounded bg-secondary transition-all animate-zoom"
