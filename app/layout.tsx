@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     locale: "en-Us",
     title: "Linkify",
     description: "Best way to summarize your online portfolio",
-    url: "https://linkify.vercel.app/",
+    url: "https://linkifyme.vercel.app/",
     images: [
       {
         url: "https://res.cloudinary.com/randomwave45/image/upload/v1693666887/Yellow_Bright_Business_Idea_Tutorial_Youtube_Thumbnail_xhwzw8_1_bbrc2c.png",

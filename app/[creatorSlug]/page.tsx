@@ -34,7 +34,7 @@ export async function generateMetadata(
       type: "website",
       locale: "en",
       description: "Check out my profile on linkify",
-      url: `https://linkify.vercel.app/${userData.username}`,
+      url: `https://linkifyme.vercel.app/${userData.username}`,
       images: [
         {
           url: `${
