@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  images: {
+    domains: ["robohash.org", "qpvnambnwbpdxbsoqekg.supabase.co"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
