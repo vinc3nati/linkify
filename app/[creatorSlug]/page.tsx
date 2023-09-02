@@ -1,7 +1,7 @@
 import Creator from "@/components/Creator";
 import supabase from "@/utils/supabaseClient";
 import { notFound } from "next/navigation";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 type Props = {
   params: { creatorSlug: string };
@@ -20,13 +20,9 @@ async function fetchUser(username: string) {
   return { userData: resp.data?.[0], links: data };
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const creatorSlug = params.creatorSlug;
   const { userData } = await fetchUser(creatorSlug);
-  const previousImages = (await parent).openGraph?.images || [];
   const imageUrl = userData.profile_picture_url
     ? userData.profile_picture_url
     : `https://robohash.org/${userData.username}`;
@@ -46,7 +42,6 @@ export async function generateMetadata(
           height: 600,
           alt: `${userData.username} thumbnail`,
         },
-        ...previousImages,
       ],
     },
   };
