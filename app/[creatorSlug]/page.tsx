@@ -27,6 +27,10 @@ export async function generateMetadata(
   const creatorSlug = params.creatorSlug;
   const { userData } = await fetchUser(creatorSlug);
   const previousImages = (await parent).openGraph?.images || [];
+  const imageUrl = userData.profile_picture_url
+    ? userData.profile_picture_url
+    : `https://robohash.org/${userData.username}`;
+
   return {
     title: `${userData.fullname}`,
     description: "Check out my profile on linkify",
@@ -37,11 +41,7 @@ export async function generateMetadata(
       url: `https://linkifyme.vercel.app/${userData.username}`,
       images: [
         {
-          url: `${
-            userData.profile_picture_url
-              ? userData.profile_picture_url
-              : `https://robohash.org/${userData.username}`
-          }`,
+          url: imageUrl,
           width: 800,
           height: 600,
           alt: `${userData.username} thumbnail`,
