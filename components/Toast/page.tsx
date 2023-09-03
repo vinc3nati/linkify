@@ -8,7 +8,7 @@ type ToastProps = {
 
 export const ToastMessage = ({ message, type }: ToastProps) => {
   return toast(message, {
-    position: "bottom-right",
+    position: "top-right",
     autoClose: 1500,
     hideProgressBar: true,
     closeOnClick: true,

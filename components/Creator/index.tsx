@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import ModalWrapper from "@/components/ModalWrapper";
 import { ToastMessage } from "@/components/Toast/page";
 import { useAuthStore } from "@/stores/authStore";
-import { JWT_CREDS, ToastType } from "@/utils/constants";
+import { IMAGE_SIZE_LIMIT, JWT_CREDS, ToastType } from "@/utils/constants";
 import supabase from "@/utils/supabaseClient";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useMemo, useState, useEffect } from "react";
@@ -91,6 +91,13 @@ function Creator(props: TCreator) {
   };
 
   const handleImageChange = (imageList: ImageListType) => {
+    if ((imageList[0].file?.size ?? 0) > IMAGE_SIZE_LIMIT) {
+      ToastMessage({
+        message: "Image size must be less than 50KB",
+        type: ToastType.Error as TypeOptions,
+      });
+      return;
+    }
     setUserImage(imageList);
   };
 
@@ -310,13 +317,13 @@ function Creator(props: TCreator) {
               key={link.id}
               href={link.url}
               target="_blank"
-              className="px-3 py-3.5 select-none flex justify-center text-center items-center border w-full rounded-3xl bg-[#efefef] text-center relative after:content-[''] after:absolute after:bg-primary after:w-full after:h-full after:inset-0 after:top-2 after:left-2 after:-bottom-2 after:rounded-[inherit] after:-z-10 active:after:top-1 active:after:-bottom-1 active:after:left-1 transition-all after:transition-all"
+              className="px-3 py-3.5 select-none flex justify-center text-center items-center border w-full rounded-[2rem] bg-[#efefef] text-center relative after:content-[''] after:absolute after:bg-primary after:w-full after:h-full after:inset-0 after:top-2 after:left-2 after:-bottom-2 after:rounded-[inherit] after:-z-10 active:after:top-1 active:after:-bottom-1 active:after:left-1 transition-all after:transition-all"
               title={link.title}
             >
               <span
                 className={`${
                   isLoggedIn ? "ml-auto" : "mx-auto"
-                } leading-loose overflow-hidden text-ellipsis whitespace-nowrap`}
+                }  overflow-hidden text-ellipsis whitespace-nowrap`}
               >
                 {link.title}
               </span>
@@ -327,7 +334,8 @@ function Creator(props: TCreator) {
                     e.stopPropagation();
                     handleOpenEditModal(link);
                   }}
-                  className="ml-auto cursor-pointer p-2 transition-colors rounded-full hover:bg-slate-300"
+                  className="ml-auto cursor-pointer transition-colors rounded-full hover:bg-slate-300 p-2"
+                  title="Edit"
                 >
                   <FiEdit2 />
                 </span>

@@ -18,3 +18,5 @@ export const JWT_CREDS = {
 };
 
 export const USERNAME_CHECK_DELAY = 500;
+
+export const IMAGE_SIZE_LIMIT = 50_000;
