@@ -176,7 +176,7 @@ function SignUp() {
             Sign Up
           </Button>
         </form>
-        <p className="mt-2">
+        <p className="mt-2 select-none">
           Already have an account ?{" "}
           <span
             className="text-primary underline cursor-pointer"

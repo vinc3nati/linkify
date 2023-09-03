@@ -122,7 +122,7 @@ function Login() {
             Login
           </Button>
         </form>
-        <p className="mt-2">
+        <p className="mt-2 select-none">
           Don&rsquo;t have an account ?{" "}
           <span
             className="text-primary underline cursor-pointer"
