@@ -20,3 +20,15 @@ export const JWT_CREDS = {
 export const USERNAME_CHECK_DELAY = 500;
 
 export const IMAGE_SIZE_LIMIT = 50_000;
+
+export const SINGUP_INITIAL_VAL = {
+  username: "",
+  name: "",
+  email: "",
+  password: "",
+};
+
+export const LOGIN_INITIAL_VAL = {
+  email: "",
+  password: "",
+};
