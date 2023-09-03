@@ -3,7 +3,12 @@ import Button from "@/components/Button";
 import withAuth from "@/components/PrivateRoute";
 import { ToastMessage } from "@/components/Toast/page";
 import { useAuthStore } from "@/stores/authStore";
-import { ABSOLUTE_PATHS, JWT_CREDS, ToastType } from "@/utils/constants";
+import {
+  ABSOLUTE_PATHS,
+  JWT_CREDS,
+  LOGIN_INITIAL_VAL,
+  ToastType,
+} from "@/utils/constants";
 import { setCookie } from "@/utils/cookies";
 import supabase from "@/utils/supabaseClient";
 import { AuthApiError } from "@supabase/supabase-js";
@@ -14,11 +19,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { TypeOptions } from "react-toastify";
 
 function Login() {
-  const initialVal = {
-    email: "",
-    password: "",
-  };
-  const [userData, setUserData] = useState(initialVal);
+  const [userData, setUserData] = useState(LOGIN_INITIAL_VAL);
   const [loading, setLoading] = useState(false);
 
   const { setAccessToken, setRefreshToken, setMe } = useAuthStore(
@@ -61,7 +62,7 @@ function Login() {
       setRefreshToken(resp.data.session.refresh_token);
       setMe(dataToBeSaved);
       localStorage.setItem(JWT_CREDS.ME, JSON.stringify(dataToBeSaved));
-
+      setUserData(LOGIN_INITIAL_VAL);
       ToastMessage({
         message: "Logged in successfully",
         type: ToastType.Success as TypeOptions,

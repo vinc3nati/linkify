@@ -4,6 +4,7 @@ import withAuth from "@/components/PrivateRoute";
 import { ToastMessage } from "@/components/Toast/page";
 import {
   ABSOLUTE_PATHS,
+  SINGUP_INITIAL_VAL,
   ToastType,
   USERNAME_CHECK_DELAY,
 } from "@/utils/constants";
@@ -16,13 +17,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { TypeOptions } from "react-toastify";
 
 function SignUp() {
-  const initialVal = {
-    username: "",
-    name: "",
-    email: "",
-    password: "",
-  };
-  const [userData, setUserData] = useState(initialVal);
+  const [userData, setUserData] = useState(SINGUP_INITIAL_VAL);
   const [usernameError, setUsernameError] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -33,7 +28,8 @@ function SignUp() {
       const { data, error } = await supabase
         .from("users")
         .select("username")
-        .eq("username", username);
+        .eq("username", username.toLowerCase());
+
       if (error) throw error;
       if (data?.length > 0)
         throw { message: `${username} username already exists` };
@@ -71,15 +67,10 @@ function SignUp() {
       }
       const resp = await supabase.auth.signUp({ ...userData });
       if (resp.error) throw resp.error;
-      ToastMessage({
-        message: "Mail verification sent successfully",
-        type: ToastType.Success as TypeOptions,
-      });
       const userId = resp.data.user?.id;
       if (userId) {
         await handleCreateUser(userId);
       }
-      setUserData(initialVal);
     } catch (err: AuthApiError | any) {
       ToastMessage({
         message: err?.message as string,
@@ -99,7 +90,19 @@ function SignUp() {
         fullname: userData.name,
       });
       if (error) throw error;
-    } catch (err) {
+      ToastMessage({
+        message: "Mail verification sent successfully",
+        type: ToastType.Success as TypeOptions,
+      });
+      setUserData(SINGUP_INITIAL_VAL);
+    } catch (err: any) {
+      ToastMessage({
+        message:
+          err?.code === "23503"
+            ? "Email already in use"
+            : (err?.message as string),
+        type: ToastType.Error as TypeOptions,
+      });
       console.error(">>>>>> CREATE USER ERROR", err);
     }
   };
