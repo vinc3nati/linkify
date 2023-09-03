@@ -35,9 +35,10 @@ function SignUp() {
         .select("username")
         .eq("username", username);
       if (error) throw error;
-      if (data?.length > 0) throw { message: "Username already exists" };
+      if (data?.length > 0)
+        throw { message: `${username} username already exists` };
       ToastMessage({
-        message: "Username available",
+        message: `${username} username available`,
         type: ToastType.Success as TypeOptions,
       });
       setUsernameError(false);
@@ -97,7 +98,6 @@ function SignUp() {
         username: userData.username.toLowerCase(),
         fullname: userData.name,
       });
-      console.log("User created successfully");
       if (error) throw error;
     } catch (err) {
       console.error(">>>>>> CREATE USER ERROR", err);

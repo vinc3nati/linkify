@@ -24,6 +24,7 @@ module.exports = {
       },
       borderColor: {
         primary: "#4361ee",
+        secondary: "#f4faff",
       },
     },
   },
