@@ -31,6 +31,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${userData.fullname}`,
     description: "Check out my profile on linkify",
+    keywords: [
+      `${userData.fullname}`,
+      `${userData.username}`,
+      "linkify",
+      "portfolio",
+      "links",
+      "showcase",
+      "projects",
+      "profile",
+    ],
     openGraph: {
       type: "website",
       locale: "en",
