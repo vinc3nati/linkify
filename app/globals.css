@@ -22,6 +22,14 @@ body {
   background: rgb(var(--background-start-rgb));
 }
 
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .animate-zoom {
   animation: ping 0.2s cubic-bezier(0, 0, 0.2, 1);
   -webkit-animation: ping 0.2s cubic-bezier(0, 0, 0.2, 1);
