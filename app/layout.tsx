@@ -12,6 +12,18 @@ export const metadata: Metadata = {
     template: "%s | Linkify",
   },
   description: "Best way to summarize your online portfolio",
+  keywords: [
+    "linkify",
+    "portfolio",
+    "links",
+    "showcase",
+    "projects",
+    "profile",
+    "linkifyme",
+    "career",
+    "portal",
+    "online",
+  ],
   openGraph: {
     siteName: "linkify",
     type: "website",
