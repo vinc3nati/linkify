@@ -22,6 +22,8 @@ body {
   background: rgb(var(--background-start-rgb));
 }
 
+/******* DISABLING BLUE TAP ON MOBILE  ******/
+
 input,
 textarea,
 button,
@@ -33,6 +35,19 @@ a {
 .animate-zoom {
   animation: ping 0.2s cubic-bezier(0, 0, 0.2, 1);
   -webkit-animation: ping 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+/******* LOADER CSS  ******/
+.loading-container {
+  width: 100dvw;
+  height: 100dvh;
+  inset: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 200;
 }
 
 @keyframes ping {
