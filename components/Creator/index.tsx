@@ -59,7 +59,7 @@ function Creator(props: TCreator) {
   const me = useAuthStore((state) => state.me);
 
   const isLoggedIn = useMemo(() => {
-    if (me && me?.id) return true;
+    if (me && me?.id && me?.id === userDetails.id) return true;
     return false;
   }, [me, me?.id]);
 
@@ -343,7 +343,7 @@ function Creator(props: TCreator) {
             </Link>
           ))
         ) : (
-          <NoLinks />
+          <NoLinks isLoggedIn={isLoggedIn} />
         )}
       </div>
       {isLoggedIn && (
