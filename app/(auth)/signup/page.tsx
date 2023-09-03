@@ -29,6 +29,7 @@ function SignUp() {
         .from("users")
         .select("username")
         .eq("username", username.toLowerCase());
+        
       if (error) throw error;
       if (data?.length > 0)
         throw { message: `${username} username already exists` };
@@ -189,7 +190,7 @@ function SignUp() {
             Login instead!
           </span>
         </p>
-      </div>
+      </div\
     </div>
   );
 }
