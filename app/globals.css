@@ -32,9 +32,16 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+/******* Animations  ******/
+
 .animate-zoom {
   animation: ping 0.2s cubic-bezier(0, 0, 0.2, 1);
   -webkit-animation: ping 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.animate-popup {
+  animation: popup 0.2s cubic-bezier(0, 0, 0.2, 1);
+  -webkit-animation: popup 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 
 /******* LOADER CSS  ******/
@@ -49,6 +56,8 @@ a {
   background: rgba(0, 0, 0, 0.7);
   z-index: 200;
 }
+
+/******* KEYFRAMES  ******/
 
 @keyframes ping {
   0%,
@@ -68,5 +77,26 @@ a {
     -moz-transform: scale(1);
     -ms-transform: scale(1);
     -o-transform: scale(1);
+  }
+}
+
+@keyframes popup {
+  0%,
+  50% {
+    transform: translateY(-50%);
+    opacity: 0;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+  }
+  75%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
   }
 }

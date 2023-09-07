@@ -8,14 +8,14 @@ import supabase from "@/utils/supabaseClient";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useMemo, useState, useEffect } from "react";
 import { TypeOptions } from "react-toastify";
-import { FiEdit2, FiLogOut } from "react-icons/fi";
+import { FiEdit2, FiLogOut, FiSave, FiTrash } from "react-icons/fi";
 import { BsUpload } from "react-icons/bs";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import Image from "next/image";
 import NoLinks from "./NoLinks";
 import { removeCookie } from "@/utils/cookies";
 
-type TLink = {
+export type TLink = {
   id?: number;
   created_at?: string;
   title: string;
@@ -53,7 +53,7 @@ function Creator(props: TCreator) {
   const [userDetails, setUserDetails] = useState<TUserDetails>(
     props.userDetaislData ?? initialUserDetails
   );
-  const [isEditable, setIsEditable] = useState(false);
+  const [editId, setEditId] = useState(-1);
   const [userImage, setUserImage] = useState<ImageListType>([]);
 
   const me = useAuthStore((state) => state.me);
@@ -81,11 +81,11 @@ function Creator(props: TCreator) {
   const reset = () => {
     setLinkToBeAdded(() => initialValue);
     setShowModal(false);
-    setIsEditable(false);
+    setEditId(-1);
   };
 
   const handleOpenEditModal = (item: TLink) => {
-    setIsEditable(true);
+    setEditId(item.id ?? -1);
     setShowModal(true);
     setLinkToBeAdded(item);
   };
@@ -106,12 +106,13 @@ function Creator(props: TCreator) {
     try {
       setLoading(true);
       if (linkToBeAdded.title && linkToBeAdded.url && me?.id) {
+        console.log("here........", me);
         const { data, error } = await supabase
           .from("links")
           .insert({
             ...linkToBeAdded,
-            user_id: me.id,
-            username: me.username,
+            user_id: me?.id,
+            username: me?.username,
           })
           .select();
         if (error) throw error;
@@ -232,6 +233,31 @@ function Creator(props: TCreator) {
         type: ToastType.Error as TypeOptions,
       });
       console.log(">>>>> Failed to log out", err);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      const { error } = await supabase.from("links").delete().eq("id", id);
+
+      if (error) throw error;
+
+      ToastMessage({
+        message: "Link has been deleted",
+        type: ToastType.Success as TypeOptions,
+      });
+      setUserDetails((prev) => ({
+        ...prev,
+        links: prev.links.filter((lnk) => lnk.id !== id),
+      }));
+      reset;
+      setShowModal(false);
+    } catch (err: any) {
+      ToastMessage({
+        message: err?.message as string,
+        type: ToastType.Error as TypeOptions,
+      });
+      console.log(">>>>> Failed to delete", err);
     }
   };
 
@@ -380,13 +406,13 @@ function Creator(props: TCreator) {
           <ModalWrapper showModal={showModal} toggleShowModal={toggleShowModal}>
             <form
               onSubmit={(e) => {
-                if (isEditable) editLink(e);
+                if (editId !== -1) editLink(e);
                 else addNewLink(e);
               }}
               className="flex flex-col w-full gap-4"
             >
               <header className="font-bold text-xl text-center uppercase pb-1 border-b text-primary ">
-                {isEditable ? "Edit Link" : "Add a Link"}
+                {editId ? "Edit Link" : "Add a Link"}
               </header>
               <input
                 type="text"
@@ -406,9 +432,28 @@ function Creator(props: TCreator) {
                 required
                 className="rounded"
               />
-              <Button type="submit" isLoading={loading}>
-                {isEditable ? "Save" : "Add"}
-              </Button>
+              <div className="flex gap-1 flex-1">
+                {editId !== -1 && (
+                  <Button
+                    customClasses="border border-red-600 bg-transparent text-red-600 w-full items-center"
+                    type="button"
+                    disabled={loading}
+                    onClick={() => {
+                      handleDelete(editId);
+                    }}
+                  >
+                    <FiTrash /> Delete
+                  </Button>
+                )}
+                <Button
+                  type="submit"
+                  isLoading={loading}
+                  disabled={loading}
+                  customClasses="w-full"
+                >
+                  <FiSave /> {editId !== -1 ? "Save" : "Add"}
+                </Button>
+              </div>
             </form>
           </ModalWrapper>
         </>
