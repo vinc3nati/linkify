@@ -14,6 +14,7 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import Image from "next/image";
 import NoLinks from "./NoLinks";
 import { removeCookie } from "@/utils/cookies";
+import Footer from "./Footer";
 
 export type TLink = {
   id?: number;
@@ -336,7 +337,7 @@ function Creator(props: TCreator) {
       <h1 className="text-3xl font-bold text-blue-900 tracking-wider mt-2 mb-4">
         {userDetails?.fullname}
       </h1>
-      <div className="flex flex-col gap-4 max-w-lg justify-center items-center w-full mx-auto border-t border-t-primary/40 py-4">
+      <div className="flex flex-col gap-4 max-w-lg justify-center items-center w-full mx-auto border-t border-t-primary/40 py-4 mb-6">
         {userDetails?.links?.length > 0 ? (
           userDetails.links.map((link) => (
             <Link
@@ -458,6 +459,7 @@ function Creator(props: TCreator) {
           </ModalWrapper>
         </>
       )}
+      <Footer />
     </div>
   );
 }

@@ -1,23 +1,18 @@
 import { useAuthStore } from "@/stores/authStore";
 import { JWT_CREDS } from "@/utils/constants";
 import { getCookie } from "@/utils/cookies";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 const withAuth = (WrappedComponent: any) => {
   const Wrapper = (props: any) => {
-    const router = useRouter();
     const me = useAuthStore((state) => state.me);
 
     // Simulate authentication check
     const isAuthenticated = me?.id || getCookie(JWT_CREDS.ACCESS_TOKEN);
 
-    // Redirect to the dashboard if the user is already authenticated
-    useEffect(() => {
-      if (isAuthenticated) {
-        router.replace(`/${me?.username}`);
-      }
-    }, [isAuthenticated, router]);
+    if (isAuthenticated) {
+      redirect(`/${me?.username}`);
+    }
 
     return <WrappedComponent {...props} />;
   };

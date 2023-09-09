@@ -6,7 +6,7 @@ export default function NoLinks({ isLoggedIn }: { isLoggedIn: boolean }) {
   return (
     <div className="flex flex-col items-center justify-center">
       <Image
-        src={"/no_links.jpg"}
+        src={"/no_links.jpeg"}
         alt="no links"
         height={100}
         width={100}
