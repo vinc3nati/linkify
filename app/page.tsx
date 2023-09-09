@@ -1,11 +1,9 @@
 "use client";
 import Button from "@/components/Button";
-import { Loader } from "@/components/Loader";
 import { useAuthStore } from "@/stores/authStore";
 import { ABSOLUTE_PATHS } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Loading from "./loading";
 
 export default function Home() {
   const router = useRouter();
@@ -22,7 +20,7 @@ export default function Home() {
         <div>
           <Button
             onClick={() => {
-              router.push(me?.id ? me?.username : ABSOLUTE_PATHS.SIGNUP);
+              router.push(me?.username ? me?.username : ABSOLUTE_PATHS.SIGNUP);
             }}
             customClasses="rounded-3xl px-4 py-3"
           >

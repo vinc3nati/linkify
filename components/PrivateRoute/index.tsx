@@ -10,7 +10,7 @@ const withAuth = (WrappedComponent: any) => {
     // Simulate authentication check
     const isAuthenticated = me?.id || getCookie(JWT_CREDS.ACCESS_TOKEN);
 
-    if (isAuthenticated) {
+    if (isAuthenticated && me?.username) {
       redirect(`/${me?.username}`);
     }
 
