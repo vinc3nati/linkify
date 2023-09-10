@@ -12,7 +12,7 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "yellow-mango":
-          "radial-gradient(circle farthest-side,#f4faff, #4361ee)",
+          "url('/bg_1.png'), radial-gradient(circle farthest-side,#f4faff, #4361ee)",
       },
       backgroundColor: {
         primary: "#4361ee",
