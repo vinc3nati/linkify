@@ -17,6 +17,8 @@ export const JWT_CREDS = {
   ME: "LINKIFY_ME",
 };
 
+export const LINKIFY_COOKIE = "LINKIFY_COOKIE";
+
 export const USERNAME_CHECK_DELAY = 500;
 
 export const IMAGE_SIZE_LIMIT = 50_000;

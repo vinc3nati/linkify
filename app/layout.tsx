@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import { Suspense } from "react";
 import Loading from "./loading";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieBanner from "@/components/CookiesBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,11 +53,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <GoogleAnalytics
+        GA_MEASUREMENT_ID={process.env.NEXT_GTAG_MEASUREMENT_ID ?? ""}
+      />
       <body className={inter.className}>
-        {/* <Loading /> */}
         <Suspense fallback={<Loading />}>
           <AuthProvider>{children}</AuthProvider>
         </Suspense>
+        <CookieBanner />
         <ToastContainer />
       </body>
     </html>
