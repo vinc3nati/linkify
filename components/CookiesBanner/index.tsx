@@ -36,7 +36,7 @@ export default function CookieBanner() {
        bg-secondary rounded-lg shadow-md`}
     >
       <div className="text-center">
-        <Link href="/cookies">
+        <Link href="/info/cookies">
           <p>
             We use <span className="font-bold text-primary">cookies</span> on
             our site.
