@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 function Cookies() {
   const Iframe = () => {
     return {
-      __html: `<iframe src="https://www.freeprivacypolicy.com/live/27ce7496-abc9-407c-9ace-216c959f8f0a" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>`,
+      __html: `<iframe src="https://linkifyme.vercel.app/info/cookies.html" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>`,
     };
   };
   return (
